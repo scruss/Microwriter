@@ -62,8 +62,10 @@ void setup() {
     if (i++ > 12) break;
   }
 
-  for (i = 0; i < NUM_KEYS; i++) pinMode(keyPorts[i], INPUT_PULLUP);
-  while (digitalRead(keyPorts[0]) == LOW) Serial.println("Testing...");
+  for (i = 0; i < NUM_KEYS;
+       i++) pinMode(keyPorts[i], INPUT_PULLUP);
+  while (digitalRead(keyPorts[0]) == LOW)
+    Serial.println("Testing...");
   // Prevent keyboard lockout.
   delay(5000);
   Keyboard.begin();
