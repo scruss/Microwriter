@@ -18,6 +18,8 @@
 #define KEYS_MOUSE_MODE_ON  1006
 #define KEYS_FUNC_SHIFT  1007
 
+#undef DEBUG
+
 // Thumb, index, middle, ring, pinkie, control pins - rewired for Arduino Micro (scruss)
 const int keyPorts[] = {8, 3, 4, 5, 6, 7};
 
@@ -54,18 +56,22 @@ char funced = 0;
 
 void setup() {
   int i = 0;
+#ifdef DEBUG
   //Initialize serial and wait for port to open:
   Serial.begin(9600);
   while (!Serial) {
     delay(200);
-    // wait for serial port to connect. Needed for Leonardo only
+    // wait for serial port to connect. Needed for Leonardo/Micro only
     if (i++ > 12) break;
   }
+#endif /* DEBUG */
 
-  for (i = 0; i < NUM_KEYS;
-       i++) pinMode(keyPorts[i], INPUT_PULLUP);
+  for (i = 0; i < NUM_KEYS; i++)
+    pinMode(keyPorts[i], INPUT_PULLUP);
+#ifdef DEBUG
   while (digitalRead(keyPorts[0]) == LOW)
     Serial.println("Testing...");
+#endif /* DEBUG */
   // Prevent keyboard lockout.
   delay(5000);
   Keyboard.begin();
@@ -172,13 +178,17 @@ void loop() {
   int x;
 
   x = keyWait();
+#ifdef DEBUG
   Serial.println(x);
+#endif /* DEBUG */
   if (x < 32) {
     if (numericed != 0)
       Keyboard.write(numericTable[x - 1]);
     else if (extraed != 0) {
+#ifdef DEBUG
       Serial.print("Extra ");
       Serial.println(x);
+#endif /* DEBUG */
       Keyboard.write(extraTable[x - 1]);
     } else if (funced != 0)
       Keyboard.write(funcTable[x - 1]);
