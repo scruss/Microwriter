@@ -18,8 +18,8 @@
 #define KEYS_MOUSE_MODE_ON  1006
 #define KEYS_FUNC_SHIFT  1007
 
-// Thumb, 1st, index, ring, pinkie, control pins.
-const int keyPorts[] = {8, 7, 6, 5, 4, 9};
+// Thumb, index, middle, ring, pinkie, control pins - rewired for Arduino Micro (scruss)
+const int keyPorts[] = {8, 3, 4, 5, 6, 7};
 
 const char alphaTable[] = " eiocadsktrny.fuhvlqz-'gj,wbxmp";
 const char numericTable[] = " 120(*3$/+;\"?.46-&#)%!@7=,:8x95";
